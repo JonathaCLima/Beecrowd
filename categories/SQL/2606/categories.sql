@@ -31,7 +31,7 @@ VALUES
     (3,    'Notebook desk',         10000,    25.50,     9),
     (4,    'Computer desk',         350,      320.50,    6),
     (5,    'Chair',                 3000,     210.64,    9),
-    (1,    'Home alarm',            750,      460,       4);
+    (6,    'Home alarm',            750,      460,       4);
   
 SELECT products.id AS "id", products.name AS "name"
 FROM products, categories
