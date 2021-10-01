@@ -19,7 +19,6 @@ The video store is making its semi-annual report and needs your help. All you ha
 
 ## Tables
     customers
-| id |name|street|city|
 | id |name                         | street                         | city          |
 |:---|:----------------------------|:-------------------------------|:--------------|
 | 1  | Giovanna Goncalves Oliveira | Rua Mato Grosso                | Canoas        |
