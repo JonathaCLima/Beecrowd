@@ -53,8 +53,8 @@ VALUES
 
 SELECT DISTINCT movies.id AS "id", movies.name AS "name"
 FROM movies_actors, movies, actors, genres
-WHERE (
-	(genres.id = movies.id_genres) AND (genres.description = 'Action')
-) AND (
-	(actors.id = movies_actors.id_actors) AND (actors.name = 'Marcelo Silva' OR actors.name = 'Miguel Silva') AND (movies.id = movies_actors.id_movies)
-)
+WHERE (actors.id = movies_actors.id_actors
+    AND genres.id = movies.id_genres
+    AND movies.id = movies_actors.id_movies
+    AND genres.description = 'Action'
+    AND (actors.name = 'Marcelo Silva' OR actors.name = 'Miguel Silva'))
