@@ -1,6 +1,6 @@
-# URI Online Judge
+# Beecrowd
 
-The URI Online Judge is a project that is being developed by the Computer Science Department of URI University. The main goal of the project is to provide programming practice and knowledge sharing.
+We are a global community of developers committed to keep evolving as students and professionals. Train algorithms and programming challenges and become the expert you always dreamed to be.
 
 # Categories
 
@@ -33,5 +33,5 @@ Query Languages: Select, Insert, Update, Create...
 
 # Profile
 
-To visit my profile [click here](https://www.urionlinejudge.com.br/judge/profile/129819)
+To visit my profile [click here](https://www.beecrowd.com.br/judge/en/profile/129819)
 
