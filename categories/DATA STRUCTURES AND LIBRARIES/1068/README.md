@@ -20,6 +20,6 @@ The input file contains **N** expressions (1 <= **N** <= 10000), each one with u
 ## Output
 The output must be **correct** or **incorrect** for each test case according with above rules.
 
-|                                 Input Samples                                 |                        Output Samples                        |
-|-------------------------------------------------------------------------------|--------------------------------------------------------------|
-| a+(b*c)-2-a<br> (a+b*(2-c)-2+a)*2<br> (a*b-(2+c)<br> 2*(3-a))<br> )3+b*(2-c)( |correct<br> correct<br> incorrect<br> incorrect<br> incorrect |
+|                                    Input Samples                                   |                        Output Samples                        |
+|------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| a+(b\*c)-2-a<br> (a+b\*(2-c)-2+a)*2<br> (a\*b-(2+c)<br> 2\*(3-a))<br> )3+b\*(2-c)( |correct<br> correct<br> incorrect<br> incorrect<br> incorrect |
