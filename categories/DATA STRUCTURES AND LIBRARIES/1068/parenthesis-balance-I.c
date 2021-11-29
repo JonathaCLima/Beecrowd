@@ -17,13 +17,13 @@ bool balanced(char *character) {
     if (*character == ')')
         return false;
     else {
-        while ((*character) && (count >= 0)) {
+        while (*character && count >= 0) {
             if (*character == '(')
                 count++;
             if (*character == ')')
-                count --;
+                count--;
             character++;
         }
-        return (count == 0) ? true : false;
+        return count == 0 ? true : false;
     }
 }
