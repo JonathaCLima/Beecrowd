@@ -7,9 +7,9 @@ int main() {
     while (scanf("%s %s", &d, n)) {
         if (d == '0' && n[0] == '0')
             break;
-        
+
         int chk = 0;
-        
+
         for (int i = 0; i < strlen(n); i++) {
             if (d != n[i]) {
                 if (n[i] == '0' && chk != 0)
@@ -20,7 +20,7 @@ int main() {
                 }
             }
         }
-        
+
         chk == 0 ? printf("0\n") : printf("\n");
     }
 

@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    string n {};
+    string n;
     char d;
 
     while (cin >> d >> n)
@@ -15,9 +15,9 @@ int main()
             break;
         }
 
-        int chk {0};
+        int chk = 0;
 
-        for (int i {0}; i < n.size(); i++)
+        for (int i = 0; i < n.size(); i++)
         {
             if (d != n.at(i))
             {
