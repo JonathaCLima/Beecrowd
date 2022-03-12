@@ -1,15 +1,18 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-int main() {
-    int n {};
-    char s[100] {};
+int main()
+{
+    int n;
+    string s;
 
     cin >> n;
 
-    do {
-        cin.getline(s, sizeof(s));
+    do
+    {
+        getline(cin, s);
     } while(n--);
 
     cout << "Ciencia da Computacao" << endl;
