@@ -15,25 +15,25 @@ int main()
             break;
         }
 
-        int chk = 0;
+        bool chk = false;
 
         for (int i = 0; i < n.size(); i++)
         {
             if (d != n.at(i))
             {
-                if (n.at(i) == '0' && chk != 0)
+                if (n.at(i) == '0' && chk != false)
                 {
                     cout << n.at(i);
                 }
-                else if (n.at(i) != '0' || chk != 0)
+                else if (n.at(i) != '0' || chk != false)
                 {
                     cout << n.at(i);
-                    chk++;
+                    chk = true;
                 }
             }
         }
 
-        cout << (chk == 0 ? "0\n" : "\n");
+        cout << (chk == false ? "0\n" : "\n");
     }
 
     return 0;
