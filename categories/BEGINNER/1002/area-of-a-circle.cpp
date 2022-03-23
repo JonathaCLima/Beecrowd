@@ -6,10 +6,10 @@ using namespace std;
 
 int main()
 {
-    double area {0}, radius {0};
+    double radius;
 
     cin >> radius;
-    area = PI * (radius * radius);
+    double area {PI * (radius * radius)};
     cout << fixed << setprecision(4) << "A=" << area << endl;
 
     return 0;
