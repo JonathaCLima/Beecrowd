@@ -4,10 +4,10 @@ using namespace std;
 
 int main()
 {
-    int a {0}, b {0}, sum {0};
+    int a, b;
 
     cin >> a >> b;
-    sum = a + b;
+    int sum {a + b};
     cout << "SOMA = " << sum << endl;
 
     return 0;
