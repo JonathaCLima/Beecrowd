@@ -30,6 +30,7 @@ int main()
     {
         cout << "TRIANGULO ACUTANGULO" << endl;
     }
+
     if ((a == b) && (a == c) && (b == c))
     {
         cout << "TRIANGULO EQUILATERO" << endl;
