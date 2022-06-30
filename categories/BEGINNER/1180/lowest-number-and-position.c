@@ -3,7 +3,9 @@
 int main() {
     int n, position = 0;
 
-    int x[scanf("%d", &n)];
+    scanf("%d", &n);
+
+    int x[n];
 
     for (int count = 0, value; count < n; count++) {
         scanf("%d", &value);
