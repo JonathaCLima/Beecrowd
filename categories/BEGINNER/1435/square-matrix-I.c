@@ -3,8 +3,8 @@
 int main () {
     int n, i, j;
     
-    while (n > 0) {
-        if (scanf("%d", &n) == 0) break;
+    while (scanf("%d", &n) != 0) {
+        if (n == 0) break;
         for (i = 1; i <= n; i++) {
             for (j = 1; j <= n; j++) {
                 if (i <= j) {
