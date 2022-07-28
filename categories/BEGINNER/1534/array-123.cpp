@@ -6,7 +6,7 @@ int main()
 {
     int n;
 
-    while (scanf("%d", &n) != EOF)
+    while (cin >> n)
     {
         for (int i {0}; i < n; i++)
         {
