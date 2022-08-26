@@ -1,89 +1,140 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 
 typedef struct node {
-    int card;
+    int value;
     struct node *next;
+    struct node *prev;
 } Node;
 
-typedef struct stack {
-    struct node *top;
-} Stack;
+typedef struct deque {
+    struct node *head;
+    struct node *tail;
+} Deque;
 
-void pop(Stack *stack, int *discard);
-void push(Stack *stack, int card);
-void move_top(Stack *stack);
-void make_empty(Stack *stack);
-void erase(Stack *stack);
-int count;
+Deque *inicialize(void);
+bool is_empty(Deque *deque);
+void push_front(Deque *deque, int value);
+void push_back(Deque *deque, int value);
+void pop_front(Deque *deque);
+void pop_back(Deque *deque);
+int peek_front(Deque *deque);
+int peek_back(Deque *deque);
+void erase_deque(Deque *deque);
 
 int main() {
     int n;
-    Stack deck;
 
     while(scanf("%d", &n) && n != 0) {
-        int discard[n];
-        make_empty(&deck);
-        count = 0;
+        Deque *deck = inicialize();
 
-        for(int i = n; i > 0; i--)
-            push(&deck, i);
-
-        pop(&deck, discard);
-
-        printf("Discarded cards:");
-        for(int i = 0; i < count; i++) {
-            printf(" %d", discard[i]);
-            i != count - 1 ? printf(",") : printf("\n");
+        for(int i = 1; i <= n; i++) {
+            push_back(deck, i);
         }
 
-        printf("Remaining card: %d\n", deck.top->card);
-        erase(&deck);
+        printf("Discarded cards: ");
+
+        while(--n) {
+            printf(n > 1 ? "%d, " : "%d\n", peek_front(deck));
+            pop_front(deck);
+            push_back(deck, peek_front(deck));
+            pop_front(deck);
+        }
+
+        printf("Remaining card: %d\n", peek_front(deck));
+
+        erase_deque(deck);
     }
 
     return 0;
 }
 
-void pop(Stack *stack, int *discard) {
-    if(stack) {
-        if(!stack->top->next)
-            return;
-        do {
-            Node *aux = stack->top;
-            discard[count++] = aux->card;
-            stack->top = stack->top->next;
-            free(aux);
-            move_top(stack);
-        } while(stack->top->next);
-    }
+Deque *inicialize()
+{
+    Deque *deque = malloc(sizeof(Deque));
+    deque->head = NULL;
+    deque->tail = NULL;
+
+    return deque;
 }
 
-void push(Stack *stack, int card) {
-    Node *aux = (Node *) malloc(sizeof(Node));
-    if(!aux) exit(1);
-    aux->next = stack->top;
-    stack->top = aux;
-    aux->card = card;
+bool is_empty(Deque *deque)
+{
+    return !deque->head || !deque->tail;
 }
 
-void move_top(Stack *stack) {
-    Node *aux = stack->top;
-    Node *bottom = stack->top;
-    if(bottom->next) {
-        while(bottom->next)
-            bottom = bottom->next;
-        stack->top = stack->top->next;
-        aux->next = bottom->next;
-        bottom->next = aux;
-    }
+void push_front(Deque *deque, int value)
+{
+    Node *new_node = malloc(sizeof(Node));
+
+    new_node->value = value;
+    new_node->next = deque->head;
+    new_node->prev = NULL;
+
+    if (is_empty(deque))
+        deque->tail = new_node;
+    else
+        deque->head->prev = new_node;
+
+    deque->head = new_node;
 }
 
-void make_empty(Stack *stack) {
-    stack->top = NULL;
+void push_back(Deque *deque, int value)
+{
+    Node *new_node = malloc(sizeof(Node));
+    
+    new_node->value = value;
+    new_node->next = NULL;
+    new_node->prev = deque->tail;
+
+    if (is_empty(deque))
+        deque->head = new_node;
+    else
+        deque->tail->next = new_node;
+
+    deque->tail = new_node;
 }
 
-void erase(Stack *stack) {
-    Node *aux = stack->top;
-    stack->top = NULL;
+void pop_front(Deque *deque)
+{
+    Node *aux = deque->head;
+    deque->head = aux->next;
+
+    if (!deque->head)
+        deque->tail = NULL;
+    else
+        deque->head->prev = NULL;
+
+    free(aux);
+}
+
+void pop_back(Deque *deque)
+{
+    Node *aux = deque->tail;
+    deque->tail = aux->prev;
+
+    if (!deque->tail)
+        deque->head = NULL;
+    else
+        deque->tail->next = NULL;
+
+    free(aux);
+}
+
+int peek_front(Deque *deque)
+{
+    return deque->head->value;
+}
+
+int peek_back(Deque *deque)
+{
+    return deque->tail->value;
+}
+
+void erase_deque(Deque *deque)
+{
+    Node *aux = deque->head;
+    deque->head = NULL;
     free(aux);
 }
