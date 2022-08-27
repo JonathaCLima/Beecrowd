@@ -50,8 +50,7 @@ int main() {
     return 0;
 }
 
-Deque *inicialize()
-{
+Deque *inicialize() {
     Deque *deque = malloc(sizeof(Deque));
     deque->head = NULL;
     deque->tail = NULL;
@@ -59,13 +58,11 @@ Deque *inicialize()
     return deque;
 }
 
-bool is_empty(Deque *deque)
-{
+bool is_empty(Deque *deque) {
     return !deque->head || !deque->tail;
 }
 
-void push_front(Deque *deque, int value)
-{
+void push_front(Deque *deque, int value) {
     Node *new_node = malloc(sizeof(Node));
 
     new_node->value = value;
@@ -80,10 +77,9 @@ void push_front(Deque *deque, int value)
     deque->head = new_node;
 }
 
-void push_back(Deque *deque, int value)
-{
+void push_back(Deque *deque, int value) {
     Node *new_node = malloc(sizeof(Node));
-    
+
     new_node->value = value;
     new_node->next = NULL;
     new_node->prev = deque->tail;
@@ -96,8 +92,7 @@ void push_back(Deque *deque, int value)
     deque->tail = new_node;
 }
 
-void pop_front(Deque *deque)
-{
+void pop_front(Deque *deque) {
     Node *aux = deque->head;
     deque->head = aux->next;
 
@@ -109,8 +104,7 @@ void pop_front(Deque *deque)
     free(aux);
 }
 
-void pop_back(Deque *deque)
-{
+void pop_back(Deque *deque) {
     Node *aux = deque->tail;
     deque->tail = aux->prev;
 
@@ -122,18 +116,15 @@ void pop_back(Deque *deque)
     free(aux);
 }
 
-int peek_front(Deque *deque)
-{
+int peek_front(Deque *deque) {
     return deque->head->value;
 }
 
-int peek_back(Deque *deque)
-{
+int peek_back(Deque *deque) {
     return deque->tail->value;
 }
 
-void erase_deque(Deque *deque)
-{
+void erase_deque(Deque *deque) {
     Node *aux = deque->head;
     deque->head = NULL;
     free(aux);
