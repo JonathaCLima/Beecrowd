@@ -1,5 +1,5 @@
 #include <iostream>
-#include <deque>
+#include <queue>
 
 using namespace std;
 
@@ -9,11 +9,11 @@ int main()
 
     while ((cin >> n) && (n))
     {
-        deque<int> deck;
+        queue<int> deck;
 
         for (int i {1}; i <= n; i++)
         {
-            deck.push_back(i);
+            deck.push(i);
         }
 
         cout << "Discarded cards: ";
@@ -21,9 +21,9 @@ int main()
         while (--n)
         {
             cout << deck.front() << (n > 1 ? ", " : "\n");
-            deck.pop_front();
-            deck.push_back(deck.front());
-            deck.pop_front();
+            deck.pop();
+            deck.push(deck.front());
+            deck.pop();
         }
 
         cout << "Remaining card: " << deck.front() << endl;
