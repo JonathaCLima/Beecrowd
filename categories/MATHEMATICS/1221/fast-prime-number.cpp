@@ -9,23 +9,23 @@ int main()
 
     cin >> n;
 
-    while(n--)
+    while (n--)
     {
         int x;
 
         cin >> x;
 
-        if((x != 2 && x % 2 == 0) || x == 1)
+        if ((x != 2 && x % 2 == 0) || x == 1)
         {
             cout << "Not Prime" << endl;
         }
         else
         {
-            bool prime = true;
+            bool prime {true};
 
-            for(int i = 3; prime == true && i <= sqrt(x); i += 2)
+            for (int i {3}; prime == true && i <= sqrt(x); i += 2)
             {
-                if(x % i == 0)
+                if (x % i == 0)
                 {
                     prime = false;
                 }
