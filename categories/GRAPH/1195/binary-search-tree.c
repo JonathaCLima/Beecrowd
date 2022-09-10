@@ -1,108 +1,89 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-typedef struct node {
-    int value;
-    struct node *left, *right;
+typedef struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
 } Node;
 
-typedef struct binary_tree {
-    struct node *root;
-} BTree;
+Node* create(Node*, int);
+Node* push(Node*, int);
 
-void insert(BTree *tree, int value);
-void insert_left(Node *ptr, int value);
-void insert_right(Node *ptr, int value);
-void print(Node *ptr, int count);
-void pre(Node *ptr);
-void in(Node *ptr);
-void post(Node *ptr);
+void pre(Node*);
+void in(Node*);
+void post(Node*);
 
 int main() {
-    int c, n, value, count = 1;
-    BTree tree;
-    
+    int c, count_cases = 0;
+
     scanf("%d", &c);
+
     while(c--) {
-        tree.root = NULL;
+        Node* root = NULL;
+
+        int n;
+
         scanf("%d", &n);
+
         while(n--) {
-            scanf("%d", &value);
-            insert(&tree, value);
+            int number;
+            scanf("%d", &number);
+            root = push(root, number);
         }
-        print(tree.root, count++);
+
+        printf("Case %d:", ++count_cases); printf("\n");
+        printf("Pre.:"); pre(root); printf("\n");
+        printf("In..:"); in(root); printf("\n");
+        printf("Post:"); post(root); printf("\n\n");
     }
 
     return 0;
 }
 
-void insert(BTree *tree, int value) {
-    if(tree->root == NULL) {
-        Node *new_node = (Node*)malloc(sizeof(Node));
-        new_node->value = value;
-        new_node->left = NULL;
-        new_node->right = NULL;
-        tree->root = new_node;
+Node* create(Node* root, int number) {
+    root = (Node*) malloc(sizeof(Node));
+    root->data = number;
+    root->right = NULL;
+    root->left = NULL;
+
+    return root;
+}
+
+Node* push(Node* root, int number) {
+    if(!root)
+        return root = create(root, number);
+    else {
+        if (number > root->data)
+            root->right = push(root->right, number);
+        else
+            root->left = push(root->left, number);
     }
-    else
-        value < tree->root->value ? insert_left(tree->root, value) : insert_right(tree->root, value);
+
+    return root;
 }
 
-void insert_left(Node *ptr, int value) {
-    if(ptr->left == NULL) {
-        Node *new_node = (Node*)malloc(sizeof(Node));
-        new_node->value = value;
-        new_node->left = NULL;
-        new_node->right = NULL;
-        ptr->left = new_node;
-    }
-    else
-        value < ptr->left->value ? insert_left(ptr->left, value) : insert_right(ptr->left, value);
-}
-
-void insert_right(Node *ptr, int value) {
-    if(ptr->right == NULL) {
-        Node *new_node = (Node*)malloc(sizeof(Node));
-        new_node->value = value;
-        new_node->left = NULL;
-        new_node->right = NULL;
-        ptr->right = new_node;
-    }
-    else
-        value > ptr->right->value ? insert_right(ptr->right, value) : insert_left(ptr->right, value);
-}
-
-void print(Node *ptr, int count) {
-    printf("Case %d:", count);
-    printf("\nPre.:");
-    pre(ptr);
-    printf("\nIn..:");
-    in(ptr);
-    printf("\nPost:");
-    post(ptr);
-    printf("\n\n");
-}
-
-void pre(Node *ptr) {
-    if(ptr != NULL) {
-        printf(" %d", ptr->value);
-        pre(ptr->left);
-        pre(ptr->right);
+void pre(Node* root) {
+    if(root) {
+        printf(" %d", root->data);
+        pre(root->left);
+        pre(root->right);
     }
 }
 
-void in(Node *ptr) {
-    if(ptr != NULL) {
-        in(ptr->left);
-        printf(" %d", ptr->value);
-        in(ptr->right);
+void in(Node* root) {
+    if(root) {
+        in(root->left);
+        printf(" %d", root->data);
+        in(root->right);
     }
 }
 
-void post(Node *ptr) {
-    if(ptr != NULL) {
-        post(ptr->left);
-        post(ptr->right);
-        printf(" %d", ptr->value);
+void post(Node* root) {
+    if(root) {
+        post(root->left);
+        post(root->right);
+        printf(" %d", root->data);
     }
 }
