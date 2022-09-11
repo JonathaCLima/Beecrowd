@@ -2,21 +2,21 @@
 
 using namespace std;
 
-class BinarySearchTree
+class Node
 {
-private:
+    private:
     int data;
-    BinarySearchTree* left;
-    BinarySearchTree* right;
+    Node* left;
+    Node* right;
 
-public:
-    BinarySearchTree(int);
+    public:
+    Node(int);
 
-    BinarySearchTree* push(BinarySearchTree*, int);
-        
-    void pre(BinarySearchTree*);
-    void in(BinarySearchTree*);
-    void post(BinarySearchTree*);
+    Node* push(Node*, int);
+
+    void pre(Node*);
+    void in(Node*);
+    void post(Node*);
 };
 
 int main()
@@ -27,8 +27,7 @@ int main()
 
     while (c--)
     {
-        BinarySearchTree* tree {NULL};
-        BinarySearchTree* root {NULL};
+        Node* root {NULL};
 
         int n;
 
@@ -38,28 +37,28 @@ int main()
         {
             int number;
             cin >> number;
-            root = tree->push(root, number);
+            root = root->push(root, number);
         }
 
         cout << "Case " << ++count_cases << ":" << endl;
-        cout << "Pre.:"; tree->pre(root); cout << endl;
-        cout << "In..:"; tree->in(root); cout << endl;
-        cout << "Post:"; tree->post(root); cout << endl << endl;
+        cout << "Pre.:"; root->pre(root); cout << endl;
+        cout << "In..:"; root->in(root); cout << endl;
+        cout << "Post:"; root->post(root); cout << endl << endl;
     }
 
     return 0;
 }
 
-BinarySearchTree::BinarySearchTree(int number) : data(number), left(NULL), right(NULL)
+Node::Node(int number) : data(number), left(NULL), right(NULL)
 {
 
 }
 
-BinarySearchTree* BinarySearchTree::push(BinarySearchTree* root, int number)
+Node* Node::push(Node* root, int number)
 {
     if (!root)
     {
-        return new BinarySearchTree(number);
+        return new Node(number);
     }
     else
     {
@@ -68,7 +67,7 @@ BinarySearchTree* BinarySearchTree::push(BinarySearchTree* root, int number)
     return root;
 }
 
-void BinarySearchTree::pre(BinarySearchTree* root)
+void Node::pre(Node* root)
 {
     if (root)
     {
@@ -78,7 +77,7 @@ void BinarySearchTree::pre(BinarySearchTree* root)
     }
 }
 
-void BinarySearchTree::in(BinarySearchTree* root)
+void Node::in(Node* root)
 {
     if (root)
     {
@@ -88,7 +87,7 @@ void BinarySearchTree::in(BinarySearchTree* root)
     }
 }
 
-void BinarySearchTree::post(BinarySearchTree* root)
+void Node::post(Node* root)
 {
     if (root)
     {
