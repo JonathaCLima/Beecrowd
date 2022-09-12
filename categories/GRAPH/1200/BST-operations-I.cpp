@@ -2,30 +2,29 @@
 
 using namespace std;
 
-class BinarySearchTree
+class Node
 {
-private:
+    private:
     char data;
-    BinarySearchTree* left;
-    BinarySearchTree* right;
+    Node* left;
+    Node* right;
 
-public:
-    BinarySearchTree(char);
+    public:
+    Node(char);
 
-    BinarySearchTree* push(BinarySearchTree*, char);
-    BinarySearchTree* find(BinarySearchTree*, char);
+    Node* push(Node*, char);
+    Node* find(Node*, char);
 
-    void pre(BinarySearchTree*);
-    void in(BinarySearchTree*);
-    void post(BinarySearchTree*);
+    void pre(Node*);
+    void in(Node*);
+    void post(Node*);
 };
 
 int data_index;
            
 int main()
 {
-    BinarySearchTree* tree {NULL};
-    BinarySearchTree* root {NULL};
+    Node* root {NULL};
 
     string operation;
 
@@ -36,26 +35,26 @@ int main()
         if (operation.compare("I") == 0)
         {
             cin >> letter;
-            root = tree->push(root, letter);
+            root = root->push(root, letter);
         }
         else if (operation.compare("P") == 0)
         {
             cin >> letter;
-            cout << letter << (tree->find(root, letter) ? " existe" : " nao existe") << endl;
+            cout << letter << (root->find(root, letter) ? " existe" : " nao existe") << endl;
         }
         else if (operation.compare("INFIXA") == 0)
         {
-            tree->in(root);
+            root->in(root);
             cout << endl;
         }
         else if (operation.compare("PREFIXA") == 0)
         {
-            tree->pre(root);
+            root->pre(root);
             cout << endl;
         }
         else if (operation.compare("POSFIXA") == 0)
         {
-            tree->post(root);
+            root->post(root);
             cout << endl;
         }
 
@@ -65,16 +64,16 @@ int main()
     return 0;
 }
 
-BinarySearchTree::BinarySearchTree(char letter) : data(letter), left(NULL), right(NULL)
+Node::Node(char letter) : data(letter), left(NULL), right(NULL)
 {
 
 }
 
-BinarySearchTree* BinarySearchTree::push(BinarySearchTree* root, char letter)
+Node* Node::push(Node* root, char letter)
 {
     if (!root)
     {
-        return new BinarySearchTree(letter);
+        return new Node(letter);
     }
     else
     {
@@ -83,7 +82,7 @@ BinarySearchTree* BinarySearchTree::push(BinarySearchTree* root, char letter)
     return root;
 }
 
-BinarySearchTree* BinarySearchTree::find(BinarySearchTree* root, char letter)
+Node* Node::find(Node* root, char letter)
 {
     if (!root || root->data == letter)
     {
@@ -95,7 +94,7 @@ BinarySearchTree* BinarySearchTree::find(BinarySearchTree* root, char letter)
     }
 }
 
-void BinarySearchTree::pre(BinarySearchTree* root)
+void Node::pre(Node* root)
 {
     if (root)
     {
@@ -105,7 +104,7 @@ void BinarySearchTree::pre(BinarySearchTree* root)
     }
 }
 
-void BinarySearchTree::in(BinarySearchTree* root)
+void Node::in(Node* root)
 {
     if (root)
     {
@@ -115,7 +114,7 @@ void BinarySearchTree::in(BinarySearchTree* root)
     }
 }
 
-void BinarySearchTree::post(BinarySearchTree* root)
+void Node::post(Node* root)
 {
     if (root)
     {
