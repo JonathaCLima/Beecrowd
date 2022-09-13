@@ -1,138 +1,107 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
 
-typedef struct node {
-    char element;
-    struct node *left, *right;
+typedef struct Node {
+    char data;
+    struct Node* left;
+    struct Node* right;
 } Node;
 
-typedef struct binary_tree {
-    struct node *root;
-} BTree;
+Node* create(Node*, char);
+Node* push(Node*, char);
+Node* find(Node*, char);
 
-void insert(BTree *tree, char element);
-void insert_left(Node *ptr, char element);
-void insert_right(Node *ptr, char element);
-bool find(Node *ptr, char element);
-void pre(Node *ptr);
-void in(Node *ptr);
-void post(Node *ptr);
+void pre(Node*);
+void in(Node*);
+void post(Node*);
 
-bool first_space;
+int data_index;
 
 int main() {
-    char operation[10], element;
-    BTree tree;
-    tree.root = NULL;
+    Node* root = NULL;
 
-    while(scanf("%s", operation) != EOF) {
-        getchar();
-        if (strcmp (operation, "I") == 0) {
-            scanf("%c", &element);
-            insert(&tree, element);
+    char operation[10];
+
+    while(scanf("%s%*c", operation) != EOF) {
+        char letter;
+
+        if(strcmp(operation, "I") == 0) {
+            scanf("%c", &letter);
+            root = push(root, letter);
         }
-        else if (strcmp (operation, "P") == 0) {
-            scanf("%c", &element);
-            find(tree.root, element) ? printf("%c existe\n", element) : printf("%c nao existe\n", element);
+        else if(strcmp(operation, "P") == 0) {
+            scanf("%c", &letter);
+            find(root, letter) ? printf("%c existe\n", letter) : printf("%c nao existe\n", letter);
         }
-        else if (strcmp (operation, "INFIXA") == 0) {
-            first_space = false;
-            in(tree.root);
+        else if(strcmp(operation, "INFIXA") == 0) {
+            in(root);
             printf("\n");
         }
-        else if (strcmp (operation, "PREFIXA") == 0) {
-            first_space = false;
-            pre(tree.root);
+        else if(strcmp(operation, "PREFIXA") == 0) {
+            pre(root);
             printf("\n");
         }
-        else if (strcmp (operation, "POSFIXA") == 0) {
-            first_space = false;
-            post(tree.root);
+        else if(strcmp(operation, "POSFIXA") == 0) {
+            post(root);
             printf("\n");
         }
+
+        data_index = 0;
     }
 
     return 0;
 }
 
-bool find(Node *ptr, char element) {
-   if (ptr == NULL)
-       return false;
-   else {
-       if (ptr->element == element)
-           return true;
-       else
-           return element < ptr->element ? find(ptr->left, element) : find(ptr->right, element);
-   }
+Node* create(Node* root, char letter) {
+    root = (Node*) malloc(sizeof(Node));
+    root->data = letter;
+    root->right = NULL;
+    root->left = NULL;
+
+    return root;
 }
 
-void insert(BTree *tree, char element) {
-    if(tree->root == NULL) {
-        Node *new_node = (Node*)malloc(sizeof(Node));
-        new_node->element = element;
-        new_node->left = NULL;
-        new_node->right = NULL;
-        tree->root = new_node;
+Node* push(Node* root, char letter) {
+    if(!root)
+        return root = create(root, letter);
+    else {
+        if (letter > root->data)
+            root->right = push(root->right, letter);
+        else
+            root->left = push(root->left, letter);
     }
+
+    return root;
+}
+
+Node* find(Node* root, char letter) {
+    if(!root || root->data == letter)
+        return root;
     else
-        element < tree->root->element ? insert_left(tree->root, element) : insert_right(tree->root, element);
+        return letter < root->data ? find(root->left, letter) : find(root->right, letter);
 }
 
-void insert_left(Node *ptr, char element) {
-    if(ptr->left == NULL) {
-        Node *new_node = (Node*)malloc(sizeof(Node));
-        new_node->element = element;
-        new_node->left = NULL;
-        new_node->right = NULL;
-        ptr->left = new_node;
-    }
-    else
-        element < ptr->left->element ? insert_left(ptr->left, element) : insert_right(ptr->left, element);
-}
-
-void insert_right(Node *ptr, char element) {
-    if(ptr->right == NULL) {
-        Node *new_node = (Node*)malloc(sizeof(Node));
-        new_node->element = element;
-        new_node->left = NULL;
-        new_node->right = NULL;
-        ptr->right = new_node;
-    }
-    else
-        element > ptr->right->element ? insert_right(ptr->right, element) : insert_left(ptr->right, element);
-}
-
-void pre(Node *ptr) {
-    if(ptr != NULL) {
-        if(first_space)
-            printf(" ");
-        first_space = true;
-        printf("%c", ptr->element);
-        pre(ptr->left);
-        pre(ptr->right);
+void pre(Node* root) {
+    if(root) {
+        data_index++ == 0 ? printf("%c", root->data) : printf(" %c", root->data);
+        pre(root->left);
+        pre(root->right);
     }
 }
 
-void in(Node *ptr) {
-    if(ptr != NULL) {
-        in(ptr->left);
-        if(first_space)
-            printf(" ");
-        first_space = true;
-        printf("%c", ptr->element);
-        in(ptr->right);
+void in(Node* root) {
+    if(root) {
+        in(root->left);
+        data_index++ == 0 ? printf("%c", root->data) : printf(" %c", root->data);
+        in(root->right);
     }
 }
 
-void post(Node *ptr) {
-    if(ptr != NULL) {
-        post(ptr->left);
-        post(ptr->right);
-        if(first_space)
-            printf(" ");
-        first_space = true;
-        printf("%c", ptr->element);
+void post(Node* root) {
+    if(root) {
+        post(root->left);
+        post(root->right);
+        data_index++ == 0 ? printf("%c", root->data) : printf(" %c", root->data);
     }
 }
