@@ -2,33 +2,32 @@
 
 using namespace std;
 
-class BinarySearchTree
+class Node
 {
-private:
+    private:
     int data;
-    BinarySearchTree* left;
-    BinarySearchTree* right;
+    Node* left;
+    Node* right;
 
-public:
-    BinarySearchTree(int);
+    public:
+    Node(int);
 
-    BinarySearchTree* push(BinarySearchTree*, int);
-    BinarySearchTree* pop(BinarySearchTree*, int);
-    BinarySearchTree* find(BinarySearchTree*, int);
-    BinarySearchTree* min(BinarySearchTree*);
-    BinarySearchTree* max(BinarySearchTree*);
+    Node* push(Node*, int);
+    Node* pop(Node*, int);
+    Node* find(Node*, int);
+    Node* min(Node*);
+    Node* max(Node*);
         
-    void pre(BinarySearchTree*);
-    void in(BinarySearchTree*);
-    void post(BinarySearchTree*);
+    void pre(Node*);
+    void in(Node*);
+    void post(Node*);
 };
 
 int data_index;
 
 int main()
 {
-    BinarySearchTree* tree {NULL};
-    BinarySearchTree* root {NULL};
+    Node* root {NULL};
 
     string operation;
 
@@ -39,31 +38,31 @@ int main()
         if (operation.compare("I") == 0)
         {
             cin >> number;
-            root = tree->push(root, number);
+            root = root->push(root, number);
         }
         else if (operation.compare("P") == 0)
         {
             cin >> number;
-            cout << number << (tree->find(root, number) ? " existe" : " nao existe") << endl;
+            cout << number << (root->find(root, number) ? " existe" : " nao existe") << endl;
         }
         else if (operation.compare("R") == 0)
         {
             cin >> number;
-            root = tree->pop(root, number);
+            root = root->pop(root, number);
         }
         else if (operation.compare("INFIXA") == 0)
         {
-            tree->in(root);
+            root->in(root);
             cout << endl;
         }
         else if (operation.compare("PREFIXA") == 0)
         {
-            tree->pre(root);
+            root->pre(root);
             cout << endl;
         }
         else if (operation.compare("POSFIXA") == 0)
         {
-            tree->post(root);
+            root->post(root);
             cout << endl;
         }
 
@@ -73,16 +72,16 @@ int main()
     return 0;
 }
 
-BinarySearchTree::BinarySearchTree(int number) : data(number), left(NULL), right(NULL)
+Node::Node(int number) : data(number), left(NULL), right(NULL)
 {
 
 }
 
-BinarySearchTree* BinarySearchTree::push(BinarySearchTree* root, int number)
+Node* Node::push(Node* root, int number)
 {
     if (!root)
     {
-        return new BinarySearchTree(number);
+        return new Node(number);
     }
     else
     {
@@ -91,7 +90,7 @@ BinarySearchTree* BinarySearchTree::push(BinarySearchTree* root, int number)
     return root;
 }
 
-BinarySearchTree* BinarySearchTree::pop(BinarySearchTree* root, int number)
+Node* Node::pop(Node* root, int number)
 {
     if (!root)
     {
@@ -118,7 +117,7 @@ BinarySearchTree* BinarySearchTree::pop(BinarySearchTree* root, int number)
     return root;
 }
 
-BinarySearchTree* BinarySearchTree::find(BinarySearchTree* root, int number)
+Node* Node::find(Node* root, int number)
 {
     if (!root || root->data == number)
     {
@@ -130,7 +129,7 @@ BinarySearchTree* BinarySearchTree::find(BinarySearchTree* root, int number)
     }
 }
 
-BinarySearchTree* BinarySearchTree::min(BinarySearchTree* root)
+Node* Node::min(Node* root)
 {
     if (!root)
     {
@@ -142,7 +141,7 @@ BinarySearchTree* BinarySearchTree::min(BinarySearchTree* root)
     }
 }
 
-BinarySearchTree* BinarySearchTree::max(BinarySearchTree* root)
+Node* Node::max(Node* root)
 {
     if (!root)
     {
@@ -154,7 +153,7 @@ BinarySearchTree* BinarySearchTree::max(BinarySearchTree* root)
     }
 }
 
-void BinarySearchTree::pre(BinarySearchTree* root)
+void Node::pre(Node* root)
 {
     if (root)
     {
@@ -164,7 +163,7 @@ void BinarySearchTree::pre(BinarySearchTree* root)
     }
 }
 
-void BinarySearchTree::in(BinarySearchTree* root)
+void Node::in(Node* root)
 {
     if (root)
     {
@@ -174,7 +173,7 @@ void BinarySearchTree::in(BinarySearchTree* root)
     }
 }
 
-void BinarySearchTree::post(BinarySearchTree* root)
+void Node::post(Node* root)
 {
     if (root)
     {
