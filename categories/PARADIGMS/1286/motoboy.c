@@ -1,31 +1,31 @@
 #include <stdio.h>
 
-#define LARGER(a, b) a > b ? a : b
+#define max(a, b) a > b ? a : b
 
-typedef struct {
-    int time_spent, pizzas;
-} Delivery;
+typedef struct Order {
+    int delivery_time, amount_pizzas;
+} Order;
 
 int main() {
-    Delivery order[31];
-    int motoboy[21][31], n, p;
+    Order delivery[31];
+    int worst_orders[21][31], n, p;
 
     while(scanf("%d", &n) && n) {
         scanf("%d", &p);
         for(int i = 1; i <= n; i++)
-            scanf("%d %d", &order[i].time_spent, &order[i].pizzas);
+            scanf("%d %d", &delivery[i].delivery_time, &delivery[i].amount_pizzas);
 
         for(int i = 0; i <= n; i++)
             for(int j = 0; j <= p; j++)
                 if(!i || !j)
-                    motoboy[i][j] = 0;
+                    worst_orders[i][j] = 0;
                 else
-                    if(order[i].pizzas > j)
-                        motoboy[i][j] = motoboy[i-1][j];
+                    if(delivery[i].amount_pizzas > j)
+                        worst_orders[i][j] = worst_orders[i - 1][j];
                     else
-                        motoboy[i][j] = LARGER(motoboy[i-1][j - order[i].pizzas] + order[i].time_spent, motoboy[i-1][j]);
+                        worst_orders[i][j] = max(worst_orders[i - 1][j - delivery[i].amount_pizzas] + delivery[i].delivery_time, worst_orders[i - 1][j]);
 
-        printf("%d min.\n", motoboy[n][p]);
+        printf("%d min.\n", worst_orders[n][p]);
     }
 
     return 0;
